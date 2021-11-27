@@ -4,7 +4,7 @@ from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 import config
 from models import db
-from resources import ProductResource, ProductList
+from resources import ProductRes, ProductList
 import os
 
 
@@ -38,6 +38,6 @@ def create_app(conf: str = 'DevConf'):
     migrate.init_app(app, db)
 
     api.add_resource(ProductList, '/products/')
-    api.add_resource(ProductResource, '/products/<int:product_id>/')
+    api.add_resource(ProductRes, '/products/<int:product_id>/')
 
     return app

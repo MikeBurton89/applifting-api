@@ -3,13 +3,11 @@ from flask import request
 from models import db, Product, Offer
 from schemas import validate_data, product_schema_list, product_schema_no_name, product_schema_relation, product_schema
 
-# TODO FIX THE ERROR THAT DOESN'T LET ME QUERY THE PRODUCT!!!!!!
-
 
 class ProductList(Resource):
     def get(self):
         products = Product.query.all()
-        return product_schema_list.dump(products)
+        return product_schema_list.dump(products), 200
 
     def put(self):
         data = validate_data(request.get_json(), product_schema)
@@ -19,7 +17,7 @@ class ProductList(Resource):
         return product, 201
 
 
-class ProductResource(Resource):
+class ProductRes(Resource):
     def get(self, product_id):
         product = Product.query.get_or_404(product_id)
         return product_schema.dump(product)
