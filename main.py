@@ -1,20 +1,43 @@
-from flask import Flask, abort
-from flask_restful import Api, Resource, request
+from flask import Flask
+from flask_restful import Api
+from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
-from marshmallow import Schema, ValidationError, fields
-import models
+import config
+from models import db
 from resources import Product, ProductList
+import os
 
 
-app = Flask(__name__)
-api = Api(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
-db = SQLAlchemy(app)
+def bad_request(e):
+    return {'message': 'Bad request'}, 400
 
 
-api.add_resource(ProductList, '/products/')
-api.add_resource(Product, '/products/<int:product_id>/')
+def not_found(e):
+    return {'message': 'Not found'}, 404
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+def internal_error(e):
+    db.session.rollback()
+    return {'message': 'Internal Server error'}, 500
+
+# TODO add production and testing Configurations
+
+
+def create_app(conf: str = 'DevConf'):
+    app = Flask(__name__)
+    api = Api(app)
+    app.config.from_object(f'config.{conf}')
+
+    app.register_error_handler(400, bad_request)
+    app.register_error_handler(404, not_found)
+    app.register_error_handler(500, internal_error)
+
+    db.init_app(app)
+
+    migrate = Migrate()
+    migrate.init_app(app, db)
+
+    api.add_resource(ProductList, '/products/')
+    api.add_resource(Product, '/products/<int:product_id>/')
+
+    return app

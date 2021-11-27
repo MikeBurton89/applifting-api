@@ -1,5 +1,7 @@
-from flask_restful import Api, Resource, fields
-import main
+from flask_restful import Resource
+from flask import request
+from models import db, Product, Offer
+from schemas import validate_data, product_schema_list, product_schema_no_name, product_schema_relation, product_schema
 
 
 class ProductList(Resource):

@@ -1,5 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
-from main import db
+
+
+db = SQLAlchemy()
 
 
 class Offer(db.Model):
