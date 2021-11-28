@@ -5,6 +5,7 @@ class Config():
     DEBUG = False
     TESTING = False
     SQLALCHEMY_DATABASE_URI = 'sqlite:///database.db'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class DevConf(Config):

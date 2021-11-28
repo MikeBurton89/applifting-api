@@ -1,5 +1,6 @@
-from marshmallow import ValidationError, Schema, fields
 from flask import abort
+from models import Product
+from marshmallow import ValidationError, Schema, fields
 
 
 class ProductSchema(Schema):
@@ -32,4 +33,4 @@ def validate_data(raw_data: dict, schema: Schema) -> dict:
     try:
         return schema.load(raw_data)
     except ValidationError:
-        return abort(422, {'message': ValidationError.messages})
+        return abort(422, {'message': "There's a problem with your data"})

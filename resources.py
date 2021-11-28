@@ -12,9 +12,10 @@ class ProductList(Resource):
     def post(self):
         data = validate_data(request.get_json(), product_schema)
         product = Product(**data)
+        print(product)
         db.session.add(product)
         db.session.commit()
-        return product, 201
+        return product_schema.dump(product), 201
 
 
 class ProductRes(Resource):
