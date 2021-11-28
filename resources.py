@@ -9,7 +9,7 @@ class ProductList(Resource):
         products = Product.query.all()
         return product_schema_list.dump(products), 200
 
-    def put(self):
+    def post(self):
         data = validate_data(request.get_json(), product_schema)
         product = Product(**data)
         db.session.add(product)

@@ -26,7 +26,7 @@ product_schema_relation = ProductSchemaRelation()
 offers_schema = OfferSchema()
 
 
-def validate_data(raw_data: dict, schema: Schema):
+def validate_data(raw_data: dict, schema: Schema) -> dict:
     if not raw_data:
         return abort(400, {'message': 'no input provided'})
     try:
