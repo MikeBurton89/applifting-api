@@ -1,7 +1,24 @@
+from typing import Callable
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.dialects.sqlite import UUID
 
 
 db = SQLAlchemy()
+
+
+class OffersMS(db.Model):
+    access_token = db.Column(UUID(as_uuid=True),
+                             unique=True, nullable=False)
+
+    @classmethod
+    def get_access_token(cls, extract_access_token: Callable[[], str]):
+        om = db.session.query(cls).first()
+        if om is None:
+            access_token = extract_access_token()
+            omr = cls(access_token=access_token)
+            db.session.add(omr)
+            db.session.commit()
+        return str(omr.access_token)
 
 
 class Offer(db.Model):
