@@ -1,13 +1,20 @@
 from typing import Callable
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.dialects.sqlite import UUID
+from sqlalchemy import UniqueConstraint
+import uuid
 
 
 db = SQLAlchemy()
 
 
-class OffersMS(db.Model):
-    access_token = db.Column(UUID(as_uuid=True),
+class IdModel(db.Model):
+
+    __abstract__ = True
+    id = db.Column(db.Integer, primary_key=True)
+
+
+class OffersMS(IdModel):
+    access_token = db.Column(db.Integer,
                              unique=True, nullable=False)
 
     @classmethod
@@ -15,25 +22,27 @@ class OffersMS(db.Model):
         om = db.session.query(cls).first()
         if om is None:
             access_token = extract_access_token()
-            omr = cls(access_token=access_token)
-            db.session.add(omr)
+            om = cls(access_token=access_token)
+            db.session.add(om)
             db.session.commit()
-        return str(omr.access_token)
+        return str(om.access_token)
 
 
-class Offer(db.Model):
+class Offer(IdModel):
     # the Offer model has a many to one relationship to Product through the product.id foreign key
     product_id = db.Column(db.Integer, db.ForeignKey(
         'product.id'), nullable=False)
     id_external = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Integer)
     items_in_stock = db.Column(db.Integer)
-    db.PrimaryKeyConstraint(product_id, id_external)
+    __table_args__ = (
+        UniqueConstraint('product_id', 'id_external'),
+    )
 
 
-class Product(db.Model):
-    id = db.Column(db.Integer, unique=True, nullable=False)
+class Product(IdModel):
+    uuid = db.Column(db.Integer, default=uuid.uuid4,
+                     unique=True, nullable=False)
     name = db.Column(db.String(), nullable=False)
     description = db.Column(db.String())
     offers = db.relationship('Offer', backref='product', lazy=True)
-    db.PrimaryKeyConstraint(id)

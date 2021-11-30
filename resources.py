@@ -2,6 +2,9 @@ from flask_restful import Resource
 from flask import request
 from models import db, Product, Offer
 from schemas import validate_data, product_schema_list, product_schema_no_name, product_schema_relation, product_schema
+from offerMicroService import OffersMsClient
+
+om_client = OffersMsClient()
 
 
 class ProductList(Resource):
