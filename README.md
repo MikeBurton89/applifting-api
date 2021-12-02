@@ -17,8 +17,7 @@ This will initialize the sqlite database you need to play with the api.
 To run the server run from your terminal: 'python (or python3 on mac and Linux) app.py runserver.
 
 Take notice that the default mode is development mode with the debug active.
-If you prefer to run in production or testing mode just change the mode in app.py and main.py from 'DevConf' to 'ProdConf' or 'TestConf'
-
+If you prefer to run in production or testing mode just change the mode in app.py and main.py from 'DevConf' to 'ProdConf' or 'TestConf'.
 
 
 Framework= FLASK
@@ -35,3 +34,6 @@ product_ID = integer, Foreign_key--> product.id
 id = integer required
 price = integer
 stock = integer
+
+
+First time using Flask for an API, as of today 2/12/2021 I'm still trying to solve some issues. 

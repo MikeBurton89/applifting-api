@@ -8,7 +8,7 @@ from functools import cached_property
 
 
 DEFAULT_OFFERSMS_URL = 'https://applifting-python-excercise-ms.herokuapp.com/api/v1'
-OFFERS_MS_URL = 'localhost:5000'
+OFFERS_MS_URL = 'http://localhost:5000'
 '''
 once deployed to heroku it should get the url from there with this line
 os.environ.get(
@@ -25,14 +25,11 @@ def abort_503():
     abort(503, {'message': 'Call failed'})
 
 
-class OffersMsClient:
+class OffersMsClient():
 
     def register_product(self, product: Product):
         url = OFFERS_URL['register_product']
         data = product_schema_relation.dump(product)
-
-        current_app.logger.info(
-            f'Registering product with uuid={data["id"]} and headers {self._headers}')
         r = requests.post(url=url, headers=self._headers, data=data)
         if r.status_code:
             return True
@@ -66,3 +63,8 @@ class OffersMsClient:
     @property
     def _headers(self):
         return {'Bearer': self.get_access_token}
+
+
+def retrieve_offers():
+    pass
+    # TODO find a way to retrieve offers
