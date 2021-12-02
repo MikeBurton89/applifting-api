@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 from models import db
 from resources import ProductRes, ProductList
+from offerMicroService import OFFERS_URL, OffersMsClient
 
 
 def bad_request(e):
