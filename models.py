@@ -8,6 +8,7 @@ db = SQLAlchemy()
 
 
 class IdModel(db.Model):
+    # this model inherits sqlalchemy model, it basically creates an ID as a primary key for all other models
 
     __abstract__ = True
     id = db.Column(db.Integer, primary_key=True)

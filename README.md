@@ -7,6 +7,7 @@ To deploy on a local machine I advise to create a virtual environment, if you do
 After you cd to the directory, activated the virtual environment you need to install the requirements, easy peasy do it launching this command 'pip install -r requirements.txt' from your terminal (with venv activated).
 
 Once you have installed the requirements open a python CLI and run:
+from models import db
 from main import create_app
 app =  create_app() 
 app.app_context().push()
