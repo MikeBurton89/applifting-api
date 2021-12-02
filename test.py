@@ -31,12 +31,12 @@ class TestProductListResource:
             ('', 400),
             ({}, 400),
 
-            ({"name": "real"}, 201),
-            ({"name": "the realest", "description": "so real"}, 201),
-            ({"name": "big!@#!#!@#157____  1231  3123 1" * 4096}, 201),
+            ({"name": "cacca"}, 201),
+            ({"name": "caccapupù", "description": "stinky"}, 201),
+            ({"name": "bwahrsf!@#!#!@#157____  1231  3123 1" * 4096}, 201),
 
             ({'name': None}, 422),
-            ({'description': 'so real'}, 422),
+            ({'description': 'stinky'}, 422),
             ({'nono': 'bono'}, 422),
             ({'name': 9}, 422),
             ({'name': 'nice', 'description': 123}, 422),
