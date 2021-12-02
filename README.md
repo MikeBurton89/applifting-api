@@ -27,18 +27,29 @@ If you prefer to run in production or testing mode just change the mode in app.p
 
 
 Framework= FLASK
+
 Database= SQLite
 
 Product Schema:
+
+uuid = Integer
+
 ID = integer, unique, Primary Key, required
+
 Name = string, required
+
 Description = string
+
 Relationship = 1 product to many offers
 
 Offer Schema:
+
 product_ID = integer, Foreign_key--> product.id
+
 id = integer required
+
 price = integer
+
 stock = integer
 
 
