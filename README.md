@@ -20,7 +20,7 @@ db.create_all()
 
 This will initialize the sqlite database you need to play with the api.
 
-To run the server run from your terminal: 'python (or python3 on mac and Linux) app.py runserver.
+To run the server run from your terminal: 'python (or python3 on mac and Linux) app.py runserver'
 
 Take notice that the default mode is development mode with the debug active.
 If you prefer to run in production or testing mode just change the mode in app.py and main.py from 'DevConf' to 'ProdConf' or 'TestConf'.
@@ -53,4 +53,4 @@ price = integer
 stock = integer
 
 
-First time using Flask for an API, as of today 2/12/2021 I'm still trying to solve some issues. 
+First time using Flask for an API, as of today 2/12/2021 I'm still trying to solve some issues especially with module flask_sqlalchemy that doesn't get recognized from import statements even if its installed both in the venv and on the computer.
