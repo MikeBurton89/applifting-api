@@ -1,5 +1,5 @@
 import os
-from sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 from flask import current_app, abort
 from models import Product, OffersMS
 from schemas import product_schema_relation
@@ -8,8 +8,11 @@ from functools import cached_property
 
 
 DEFAULT_OFFERSMS_URL = 'https://applifting-python-excercise-ms.herokuapp.com/api/v1'
-OFFERS_MS_URL = os.environ.get(
-    'OFFERS_MS_URL', DEFAULT_OFFERSMS_URL).rstrip('/')
+OFFERS_MS_URL = 'localhost:5000'
+'''
+once deployed to heroku it should get the url from there with this line
+os.environ.get(
+    'OFFERS_MS_URL', DEFAULT_OFFERSMS_URL).rstrip('/')'''
 
 OFFERS_URL = {
     'auth': f'{OFFERS_MS_URL}/auth',
@@ -24,7 +27,7 @@ def abort_503():
 
 class OffersMsClient:
 
-    def register_product(self, product: Product) -> bool:
+    def register_product(self, product: Product):
         url = OFFERS_URL['register_product']
         data = product_schema_relation.dump(product)
 
@@ -61,5 +64,5 @@ class OffersMsClient:
         return OffersMS.get_access_token(self._extract_access_token)
 
     @property
-    def _headers(self) -> Dict[str, str]:
+    def _headers(self):
         return {'Bearer': self.get_access_token}

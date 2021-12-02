@@ -19,8 +19,6 @@ def internal_error(e):
     db.session.rollback()
     return {'message': 'Internal Server error'}, 500
 
-# TODO add production and testing Configurations
-
 
 def create_app(conf: str = 'DevConf'):
     app = Flask(__name__)

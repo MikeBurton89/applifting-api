@@ -18,10 +18,10 @@ class OffersMS(IdModel):
                              unique=True, nullable=False)
 
     @classmethod
-    def get_access_token(cls, extract_access_token: Callable[[], str]):
+    def get_access_token(cls, _extract_access_token: Callable[[], str]):
         om = db.session.query(cls).first()
         if om is None:
-            access_token = extract_access_token()
+            access_token = _extract_access_token()
             om = cls(access_token=access_token)
             db.session.add(om)
             db.session.commit()

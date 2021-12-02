@@ -4,13 +4,14 @@ from marshmallow import ValidationError, Schema, fields
 
 
 class ProductSchema(Schema):
+    uuid = fields.Int()
     id = fields.Int(dump_only=True)
     name = fields.Str(required=True)
     description = fields.Str(allow_none=True)
 
 
 class ProductSchemaRelation(ProductSchema):
-    id = fields.Function(lambda obj: str(obj.uuid))
+    uuid = fields.Function(lambda obj: str(obj.uuid))
 
 
 class OfferSchema(Schema):
