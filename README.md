@@ -8,9 +8,13 @@ After you cd to the directory, activated the virtual environment you need to ins
 
 Once you have installed the requirements open a python CLI and run:
 from models import db
+
 from main import create_app
+
 app =  create_app() 
+
 app.app_context().push()
+
 db.create_all()
 
 This will initialize the sqlite database you need to play with the api.
